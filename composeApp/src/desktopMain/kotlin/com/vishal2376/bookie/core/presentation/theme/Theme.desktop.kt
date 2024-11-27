@@ -11,6 +11,7 @@ actual fun BookieTheme(
 ) {
 	MaterialTheme(
 		colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme,
+		typography = BookieTypography(),
 		content = content
 	)
 }

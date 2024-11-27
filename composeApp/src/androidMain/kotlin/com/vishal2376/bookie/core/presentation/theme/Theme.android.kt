@@ -42,6 +42,7 @@ actual fun BookieTheme(
 
 	MaterialTheme(
 		colorScheme = colorScheme,
+		typography = BookieTypography(),
 		content = content
 	)
 }
