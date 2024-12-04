@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -81,7 +82,13 @@ fun BookItemUI(
 			)
 
 			when (val result = imageLoadResult) {
-				null -> CircularProgressIndicator()
+				null -> {
+					Box(
+						modifier = Modifier.fillMaxSize(),
+						contentAlignment = Alignment.Center
+					) { CircularProgressIndicator() }
+				}
+
 				else -> {
 					Image(
 						painter = if (result.isSuccess) painter else painterResource(Res.drawable.book_cover_error),
