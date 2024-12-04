@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="app_name">Bookie</string>
+    <string name="search_results">Search Results</string>
+    <string name="no_bookies_here">No Bookies Here!</string>
+    <string name="search_for_books">Search for books...</string>
+</resources>

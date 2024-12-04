@@ -15,11 +15,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import bookie.composeapp.generated.resources.Res
 import bookie.composeapp.generated.resources.empty_result_dark
+import bookie.composeapp.generated.resources.no_bookies_here
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun EmptyResultUI(
-	message: String = "No Bookies Here!",
+	message: String = stringResource(Res.string.no_bookies_here),
 	modifier: Modifier = Modifier,
 ) {
 	Column(
