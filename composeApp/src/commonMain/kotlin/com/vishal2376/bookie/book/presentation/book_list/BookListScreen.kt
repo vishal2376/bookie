@@ -28,13 +28,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import bookie.composeapp.generated.resources.Res
+import bookie.composeapp.generated.resources.app_name
+import bookie.composeapp.generated.resources.search_results
 import com.vishal2376.bookie.book.domain.Book
 import com.vishal2376.bookie.book.presentation.book_list.components.BookSearchBar
 import com.vishal2376.bookie.book.presentation.book_list.components.EmptyResultUI
 import com.vishal2376.bookie.book.presentation.components.BookItemUI
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -50,6 +55,7 @@ fun BookListScreenRoot(
 				is BookListAction.OnClickBook -> onBookClick(action.book)
 				else -> Unit
 			}
+			viewModel.onAction(action)
 		}
 	)
 }
@@ -58,6 +64,9 @@ fun BookListScreenRoot(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun BookListScreen(state: BookListState, onAction: (BookListAction) -> Unit) {
+
+	val keyboardController = LocalSoftwareKeyboardController.current
+
 	Scaffold(
 		topBar = {
 			TopAppBar(
@@ -68,7 +77,7 @@ private fun BookListScreen(state: BookListState, onAction: (BookListAction) -> U
 				),
 				title = {
 					Text(
-						text = "Bookie",
+						text = stringResource(Res.string.app_name),
 						style = MaterialTheme.typography.headlineLarge,
 					)
 				},
@@ -102,8 +111,8 @@ private fun BookListScreen(state: BookListState, onAction: (BookListAction) -> U
 		) {
 			BookSearchBar(
 				searchQuery = state.searchQuery,
-				onSearchQueryChange = {},
-				onSearch = {}
+				onSearchQueryChange = { onAction(BookListAction.OnSearchQueryChange(it)) },
+				onSearch = { keyboardController?.hide() }
 			)
 
 			if (state.searchResults.isEmpty()) {
@@ -122,7 +131,7 @@ private fun BookListScreen(state: BookListState, onAction: (BookListAction) -> U
 							.background(MaterialTheme.colorScheme.primary)
 					)
 					Text(
-						text = "Search Results",
+						text = stringResource(Res.string.search_results),
 						style = MaterialTheme.typography.titleMedium,
 						fontWeight = FontWeight.Bold,
 					)
