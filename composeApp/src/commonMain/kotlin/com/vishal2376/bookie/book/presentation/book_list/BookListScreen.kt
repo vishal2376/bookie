@@ -34,7 +34,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.vishal2376.bookie.book.domain.Book
 import com.vishal2376.bookie.book.presentation.book_list.components.BookSearchBar
 import com.vishal2376.bookie.book.presentation.book_list.components.EmptyResultUI
-import com.vishal2376.bookie.book.presentation.common.BookItemUI
+import com.vishal2376.bookie.book.presentation.components.BookItemUI
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable

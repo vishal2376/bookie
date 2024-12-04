@@ -1,4 +1,4 @@
-package com.vishal2376.bookie.book.presentation.common
+package com.vishal2376.bookie.book.presentation.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
