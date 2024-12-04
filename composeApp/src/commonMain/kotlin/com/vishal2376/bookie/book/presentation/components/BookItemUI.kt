@@ -2,6 +2,7 @@ package com.vishal2376.bookie.book.presentation.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -41,13 +42,20 @@ import com.vishal2376.bookie.book.domain.Book
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-fun BookItemUI(book: Book, modifier: Modifier = Modifier) {
+fun BookItemUI(
+	book: Book,
+	onClick: () -> Unit,
+	modifier: Modifier = Modifier
+) {
 	val gradientColor = listOf(Color.Transparent, MaterialTheme.colorScheme.primaryContainer)
 	Column(
 		modifier = modifier
 			.wrapContentSize()
 			.width(160.dp)
 			.clip(RoundedCornerShape(16.dp))
+			.clickable {
+				onClick()
+			}
 	) {
 		//image
 		Box(

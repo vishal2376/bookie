@@ -9,9 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
-import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
-import androidx.compose.foundation.lazy.staggeredgrid.items
+import androidx.compose.foundation.lazy.staggeredgrid.rememberLazyStaggeredGridState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Bookmarks
 import androidx.compose.material.icons.outlined.Settings
@@ -38,7 +36,7 @@ import bookie.composeapp.generated.resources.search_results
 import com.vishal2376.bookie.book.domain.Book
 import com.vishal2376.bookie.book.presentation.book_list.components.BookSearchBar
 import com.vishal2376.bookie.book.presentation.book_list.components.EmptyResultUI
-import com.vishal2376.bookie.book.presentation.components.BookItemUI
+import com.vishal2376.bookie.book.presentation.components.BookListUI
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -66,6 +64,7 @@ fun BookListScreenRoot(
 private fun BookListScreen(state: BookListState, onAction: (BookListAction) -> Unit) {
 
 	val keyboardController = LocalSoftwareKeyboardController.current
+	val lazyStaggeredGridState = rememberLazyStaggeredGridState()
 
 	Scaffold(
 		topBar = {
@@ -138,18 +137,11 @@ private fun BookListScreen(state: BookListState, onAction: (BookListAction) -> U
 					)
 				}
 
-				LazyVerticalStaggeredGrid(
-					columns = StaggeredGridCells.FixedSize(160.dp),
-					verticalItemSpacing = 24.dp,
-					horizontalArrangement = Arrangement.spacedBy(
-						24.dp,
-						Alignment.CenterHorizontally
-					),
-					content = {
-						items(state.searchResults) {
-							BookItemUI(book = it)
-						}
-					})
+				BookListUI(
+					books = state.searchResults,
+					scrollState = lazyStaggeredGridState,
+					onClickBook = { onAction(BookListAction.OnClickBook(it)) }
+				)
 			}
 		}
 	}
