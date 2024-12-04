@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.Icon
@@ -18,7 +20,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import bookie.composeapp.generated.resources.Res
+import bookie.composeapp.generated.resources.search_for_books
+import org.jetbrains.compose.resources.stringResource
 
 
 @Composable
@@ -42,7 +49,7 @@ fun BookSearchBar(
 			value = searchQuery,
 			onValueChange = onSearchQueryChange,
 			placeholder = {
-				Text(text = "Search for books...")
+				Text(text = stringResource(Res.string.search_for_books))
 			},
 			colors = TextFieldDefaults.colors(
 				focusedContainerColor = MaterialTheme.colorScheme.primaryContainer,
@@ -54,7 +61,13 @@ fun BookSearchBar(
 				focusedTextColor = MaterialTheme.colorScheme.primary,
 			),
 			singleLine = true,
-		)
+			keyboardActions = KeyboardActions(
+				onSearch = { onSearch() }
+			),
+			keyboardOptions = KeyboardOptions(
+				keyboardType = KeyboardType.Text,
+				imeAction = ImeAction.Search
+			))
 		IconButton(
 			modifier = Modifier.padding(horizontal = 6.dp),
 			onClick = onSearch
