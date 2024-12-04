@@ -1,8 +1,17 @@
 package com.vishal2376.bookie.book.presentation.book_list
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
+import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Bookmarks
 import androidx.compose.material.icons.outlined.Settings
@@ -17,11 +26,15 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.vishal2376.bookie.book.domain.Book
 import com.vishal2376.bookie.book.presentation.book_list.components.BookSearchBar
 import com.vishal2376.bookie.book.presentation.book_list.components.EmptyResultUI
+import com.vishal2376.bookie.book.presentation.common.BookItemUI
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -96,7 +109,37 @@ private fun BookListScreen(state: BookListState, onAction: (BookListAction) -> U
 			if (state.searchResults.isEmpty()) {
 				EmptyResultUI()
 			} else {
-				//TODO: Display the search results
+
+				Row(
+					modifier = Modifier.padding(24.dp, 16.dp),
+					horizontalArrangement = Arrangement.spacedBy(8.dp),
+					verticalAlignment = Alignment.CenterVertically
+				) {
+					Box(
+						modifier = Modifier
+							.width(6.dp)
+							.height(20.dp)
+							.background(MaterialTheme.colorScheme.primary)
+					)
+					Text(
+						text = "Search Results",
+						style = MaterialTheme.typography.titleMedium,
+						fontWeight = FontWeight.Bold,
+					)
+				}
+
+				LazyVerticalStaggeredGrid(
+					columns = StaggeredGridCells.FixedSize(160.dp),
+					verticalItemSpacing = 24.dp,
+					horizontalArrangement = Arrangement.spacedBy(
+						24.dp,
+						Alignment.CenterHorizontally
+					),
+					content = {
+						items(state.searchResults) {
+							BookItemUI(book = it)
+						}
+					})
 			}
 		}
 	}
