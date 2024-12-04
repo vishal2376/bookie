@@ -110,6 +110,7 @@ private fun BookListScreen(state: BookListState, onAction: (BookListAction) -> U
 				.padding(innerPadding),
 		) {
 			BookSearchBar(
+				modifier = Modifier.align(Alignment.CenterHorizontally),
 				searchQuery = state.searchQuery,
 				onSearchQueryChange = { onAction(BookListAction.OnSearchQueryChange(it)) },
 				onSearch = { keyboardController?.hide() }

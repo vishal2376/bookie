@@ -1,9 +1,11 @@
 package com.vishal2376.bookie.book.presentation.book_list.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -37,6 +39,7 @@ fun BookSearchBar(
 ) {
 	Row(
 		modifier = modifier
+			.widthIn(max = 400.dp)
 			.fillMaxWidth()
 			.padding(16.dp)
 			.clip(RoundedCornerShape(16.dp))
@@ -44,7 +47,16 @@ fun BookSearchBar(
 		verticalAlignment = Alignment.CenterVertically
 	) {
 		TextField(
-			modifier = Modifier.weight(1f),
+			modifier = Modifier.weight(1f).border(
+				1.dp,
+				MaterialTheme.colorScheme.primary,
+				RoundedCornerShape(
+					topEnd = 0.dp,
+					bottomEnd = 0.dp,
+					topStart = 16.dp,
+					bottomStart = 16.dp
+				)
+			),
 			shape = RoundedCornerShape(topEnd = 0.dp, bottomEnd = 0.dp),
 			value = searchQuery,
 			onValueChange = onSearchQueryChange,
