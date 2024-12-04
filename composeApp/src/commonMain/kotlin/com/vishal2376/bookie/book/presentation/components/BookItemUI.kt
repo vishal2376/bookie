@@ -15,21 +15,28 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import bookie.composeapp.generated.resources.Res
-import bookie.composeapp.generated.resources.book_sample
+import bookie.composeapp.generated.resources.book_cover_error
+import coil3.compose.rememberAsyncImagePainter
 import com.vishal2376.bookie.book.domain.Book
 import org.jetbrains.compose.resources.painterResource
 
@@ -49,11 +56,33 @@ fun BookItemUI(book: Book, modifier: Modifier = Modifier) {
 				.height(200.dp)
 		) {
 			// book cover
-			Image(
-				painter = painterResource(Res.drawable.book_sample),
-				contentScale = ContentScale.Crop,
-				contentDescription = null
+			var imageLoadResult by remember { mutableStateOf<Result<Painter>?>(null) }
+			val painter = rememberAsyncImagePainter(
+				model = book.imageUrl,
+				onSuccess = {
+					imageLoadResult =
+						if (it.painter.intrinsicSize.width > 1 && it.painter.intrinsicSize.height > 1) {
+							Result.success(it.painter)
+						} else {
+							Result.failure(Exception("Invalid image size"))
+						}
+				}, onError = {
+					it.result.throwable.printStackTrace()
+					imageLoadResult = Result.failure(it.result.throwable)
+				}
 			)
+
+			when (val result = imageLoadResult) {
+				null -> CircularProgressIndicator()
+				else -> {
+					Image(
+						painter = if (result.isSuccess) painter else painterResource(Res.drawable.book_cover_error),
+						contentDescription = null,
+						contentScale = if (result.isSuccess) ContentScale.Crop else ContentScale.Fit
+					)
+				}
+			}
+
 			// cover gradient blend
 			Box(
 				modifier = Modifier
