@@ -91,6 +91,7 @@ fun BookItemUI(
 
 				else -> {
 					Image(
+						modifier = Modifier.fillMaxSize(),
 						painter = if (result.isSuccess) painter else painterResource(Res.drawable.book_cover_error),
 						contentDescription = null,
 						contentScale = if (result.isSuccess) ContentScale.Crop else ContentScale.Fit
@@ -126,7 +127,7 @@ fun BookItemUI(
 					contentDescription = null
 				)
 				Text(
-					text = book.averageRating.toString(),
+					text = book.averageRating?.toString() ?: "N/A",
 					style = MaterialTheme.typography.labelMedium,
 					color = MaterialTheme.colorScheme.onPrimary,
 					fontWeight = FontWeight.Bold
@@ -148,7 +149,9 @@ fun BookItemUI(
 			)
 			Text(
 				text = book.authors.first(), style = MaterialTheme.typography.labelSmall,
-				color = MaterialTheme.colorScheme.onPrimaryContainer
+				color = MaterialTheme.colorScheme.onPrimaryContainer,
+				maxLines = 1,
+				overflow = TextOverflow.Ellipsis
 			)
 		}
 	}
