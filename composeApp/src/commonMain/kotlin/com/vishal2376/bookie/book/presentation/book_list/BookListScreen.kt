@@ -1,14 +1,9 @@
 package com.vishal2376.bookie.book.presentation.book_list
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.staggeredgrid.rememberLazyStaggeredGridState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Bookmarks
@@ -28,8 +23,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import bookie.composeapp.generated.resources.Res
 import bookie.composeapp.generated.resources.app_name
@@ -38,6 +31,7 @@ import com.vishal2376.bookie.book.domain.Book
 import com.vishal2376.bookie.book.presentation.book_list.components.BookSearchBar
 import com.vishal2376.bookie.book.presentation.book_list.components.EmptyResultUI
 import com.vishal2376.bookie.book.presentation.components.BookListUI
+import com.vishal2376.bookie.book.presentation.components.HeadingTextUI
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -129,23 +123,7 @@ private fun BookListScreen(state: BookListState, onAction: (BookListAction) -> U
 				EmptyResultUI()
 			} else {
 
-				Row(
-					modifier = Modifier.padding(24.dp, 16.dp),
-					horizontalArrangement = Arrangement.spacedBy(8.dp),
-					verticalAlignment = Alignment.CenterVertically
-				) {
-					Box(
-						modifier = Modifier
-							.width(6.dp)
-							.height(20.dp)
-							.background(MaterialTheme.colorScheme.primary)
-					)
-					Text(
-						text = stringResource(Res.string.search_results),
-						style = MaterialTheme.typography.titleMedium,
-						fontWeight = FontWeight.Bold,
-					)
-				}
+				HeadingTextUI(text = stringResource(Res.string.search_results))
 
 				BookListUI(
 					books = state.searchResults,
