@@ -6,7 +6,7 @@ import platform.UIKit.UIScreen
 import platform.UIKit.UIUserInterfaceStyle
 
 fun MainViewController() = ComposeUIViewController(
-	configure = { initKoin {} }
+	configure = { initKoin() }
 ) {
 	App(darkTheme = isSystemDarkTheme(), dynamicColor = false)
 }

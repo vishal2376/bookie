@@ -8,7 +8,7 @@ class BookApplication : Application() {
 	override fun onCreate() {
 		super.onCreate()
 		initKoin {
-			 androidContext(this@BookApplication)
+			androidContext(this@BookApplication)
 		}
 	}
 }
