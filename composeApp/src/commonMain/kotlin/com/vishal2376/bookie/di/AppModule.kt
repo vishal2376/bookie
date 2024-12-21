@@ -5,6 +5,7 @@ import com.vishal2376.bookie.book.data.remote.BookDataStore
 import com.vishal2376.bookie.book.data.respository.BookRepository
 import com.vishal2376.bookie.book.data.respository.BookRepositoryImpl
 import com.vishal2376.bookie.book.presentation.book_list.BookListViewModel
+import com.vishal2376.bookie.book.presentation.viewmodels.SharedViewModel
 import com.vishal2376.bookie.core.data.HttpClientFactory
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.singleOf
@@ -20,4 +21,5 @@ val sharedModule = module {
 	singleOf(::BookRepositoryImpl).bind<BookRepository>()
 
 	viewModelOf(::BookListViewModel)
+	viewModelOf(::SharedViewModel)
 }
