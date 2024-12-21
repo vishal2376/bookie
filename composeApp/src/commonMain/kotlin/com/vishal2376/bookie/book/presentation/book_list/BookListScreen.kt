@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.staggeredgrid.rememberLazyStaggeredGridS
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Bookmarks
 import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -114,6 +115,15 @@ private fun BookListScreen(state: BookListState, onAction: (BookListAction) -> U
 				onSearchQueryChange = { onAction(BookListAction.OnSearchQueryChange(it)) },
 				onSearch = { keyboardController?.hide() }
 			)
+
+			if (state.isLoading) {
+				Box(
+					modifier = Modifier.fillMaxSize(),
+					contentAlignment = Alignment.Center
+				) {
+					CircularProgressIndicator()
+				}
+			}
 
 			if (state.searchResults.isEmpty()) {
 				EmptyResultUI()
