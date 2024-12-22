@@ -12,7 +12,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
+import com.vishal2376.bookie.book.presentation.book_detail.BookDetailAction
 import com.vishal2376.bookie.book.presentation.book_detail.BookDetailScreenRoot
+import com.vishal2376.bookie.book.presentation.book_detail.BookDetailViewModel
 import com.vishal2376.bookie.book.presentation.book_list.BookListScreenRoot
 import com.vishal2376.bookie.book.presentation.book_list.BookListViewModel
 import com.vishal2376.bookie.book.presentation.viewmodels.SharedViewModel
@@ -31,7 +33,7 @@ fun AppNavigation() {
 				val bookListViewModel = koinViewModel<BookListViewModel>()
 				val sharedViewModel = it.sharedKoinViewModel<SharedViewModel>(navController)
 
-				LaunchedEffect(true) {
+				LaunchedEffect(Unit) {
 					sharedViewModel.onSelectBook(null)
 				}
 
@@ -43,9 +45,20 @@ fun AppNavigation() {
 			}
 
 			composable<Route.BookDetail> {
+				val bookDetailViewModel = koinViewModel<BookDetailViewModel>()
 				val sharedViewModel = it.sharedKoinViewModel<SharedViewModel>(navController)
 				val selectedBook by sharedViewModel.selectedBook.collectAsStateWithLifecycle()
-				BookDetailScreenRoot(selectedBook)
+
+				LaunchedEffect(selectedBook) {
+					selectedBook?.let { book ->
+						bookDetailViewModel.onAction(BookDetailAction.OnSelectedBookChanged(book))
+					}
+				}
+
+				BookDetailScreenRoot(viewModel = bookDetailViewModel,
+					onClickBack = {
+						navController.navigateUp()
+					})
 			}
 		}
 	}
