@@ -4,6 +4,7 @@ import com.vishal2376.bookie.book.data.remote.BookDataSourceImpl
 import com.vishal2376.bookie.book.data.remote.BookDataStore
 import com.vishal2376.bookie.book.data.respository.BookRepository
 import com.vishal2376.bookie.book.data.respository.BookRepositoryImpl
+import com.vishal2376.bookie.book.presentation.book_detail.BookDetailViewModel
 import com.vishal2376.bookie.book.presentation.book_list.BookListViewModel
 import com.vishal2376.bookie.book.presentation.viewmodels.SharedViewModel
 import com.vishal2376.bookie.core.data.HttpClientFactory
@@ -21,5 +22,6 @@ val sharedModule = module {
 	singleOf(::BookRepositoryImpl).bind<BookRepository>()
 
 	viewModelOf(::BookListViewModel)
+	viewModelOf(::BookDetailViewModel)
 	viewModelOf(::SharedViewModel)
 }
