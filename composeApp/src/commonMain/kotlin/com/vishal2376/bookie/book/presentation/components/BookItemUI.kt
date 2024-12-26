@@ -37,7 +37,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import bookie.composeapp.generated.resources.Res
-import bookie.composeapp.generated.resources.book_cover_error
+import bookie.composeapp.generated.resources.book_cover_not_found
 import coil3.compose.rememberAsyncImagePainter
 import com.vishal2376.bookie.book.domain.Book
 import org.jetbrains.compose.resources.painterResource
@@ -92,9 +92,9 @@ fun BookItemUI(
 				else -> {
 					Image(
 						modifier = Modifier.fillMaxSize(),
-						painter = if (result.isSuccess) painter else painterResource(Res.drawable.book_cover_error),
+						painter = if (result.isSuccess) painter else painterResource(Res.drawable.book_cover_not_found),
 						contentDescription = null,
-						contentScale = if (result.isSuccess) ContentScale.Crop else ContentScale.Fit
+						contentScale = ContentScale.Crop
 					)
 				}
 			}
