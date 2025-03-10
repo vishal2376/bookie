@@ -18,7 +18,7 @@ import kotlinx.serialization.json.JsonPrimitive
 object BookWorkDtoSerializer : KSerializer<BookWorkDto> {
 	override val descriptor: SerialDescriptor =
 		buildClassSerialDescriptor(BookWorkDto::class.simpleName!!) {
-			element<String?>("description ")
+			element<String?>("description")
 		}
 
 	override fun deserialize(decoder: Decoder): BookWorkDto =
