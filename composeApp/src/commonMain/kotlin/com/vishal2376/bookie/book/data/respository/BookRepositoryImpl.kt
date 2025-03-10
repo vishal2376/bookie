@@ -24,6 +24,13 @@ class BookRepositoryImpl(
 				dto.results.map { it.toDomain() }
 			}
 	}
+
+	override suspend fun getBookDescription(id: String): Result<String?, DataError.Remote> {
+		return bookDataStore.getBookDetails(id).map { book ->
+			book.description
+		}
+	}
+
 	override fun getFavoriteBooks(): Flow<List<Book>> {
 		return favoriteBookDao.getAllBooks()
 			.map { bookEntities ->
