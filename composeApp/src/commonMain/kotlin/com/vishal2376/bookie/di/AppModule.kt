@@ -1,5 +1,8 @@
 package com.vishal2376.bookie.di
 
+import androidx.sqlite.driver.bundled.BundledSQLiteDriver
+import com.vishal2376.bookie.book.data.database.DatabaseFactory
+import com.vishal2376.bookie.book.data.database.FavoriteBookDatabase
 import com.vishal2376.bookie.book.data.remote.BookDataSourceImpl
 import com.vishal2376.bookie.book.data.remote.BookDataStore
 import com.vishal2376.bookie.book.data.respository.BookRepository
@@ -20,6 +23,15 @@ val sharedModule = module {
 	single { HttpClientFactory.create(get()) }
 	singleOf(::BookDataSourceImpl).bind<BookDataStore>()
 	singleOf(::BookRepositoryImpl).bind<BookRepository>()
+
+	// Database
+	single {
+		get<DatabaseFactory>()
+			.createDatabase()
+			.setDriver(BundledSQLiteDriver())
+			.build()
+	}
+	single { get<FavoriteBookDatabase>().favoriteBookDao }
 
 	viewModelOf(::BookListViewModel)
 	viewModelOf(::BookDetailViewModel)
