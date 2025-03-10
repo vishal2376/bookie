@@ -24,13 +24,13 @@ class BookRepositoryImpl(
 				dto.results.map { it.toDomain() }
 			}
 	}
-
 	override fun getFavoriteBooks(): Flow<List<Book>> {
 		return favoriteBookDao.getAllBooks()
 			.map { bookEntities ->
 				bookEntities.map { it.toDomain() }
 			}
 	}
+
 
 	override fun isBookFavorite(id: String): Flow<Boolean> {
 		return favoriteBookDao.getAllBooks()
