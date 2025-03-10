@@ -3,6 +3,7 @@ package com.vishal2376.bookie.book.data.mapper
 import com.vishal2376.bookie.book.data.database.BookEntity
 import com.vishal2376.bookie.book.data.dto.SearchedBookDto
 import com.vishal2376.bookie.book.domain.Book
+import com.vishal2376.bookie.book.presentation.utils.roundTo
 
 fun SearchedBookDto.toDomain(): Book {
 	return Book(
@@ -17,7 +18,7 @@ fun SearchedBookDto.toDomain(): Book {
 		description = null,
 		language = languages ?: emptyList(),
 		firstPublisher = firstPublishYear.toString(),
-		averageRating = ratingsAverage,
+		averageRating = ratingsAverage?.roundTo(1),
 		ratingCount = ratingsCount,
 		numPages = numPagesMedian,
 		numEditions = numEditions ?: 0

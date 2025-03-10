@@ -120,7 +120,7 @@ fun BookDetailUI(book: Book) {
 			ChipInfoUI(icon = Icons.Outlined.BookOnline, text = "${book.firstPublisher}")
 			ChipInfoUI(
 				icon = Icons.Outlined.Translate,
-				text = book.language?.joinToString(", ") ?: ""
+				text = "${book.language?.size} languages"
 			)
 		}
 	}
