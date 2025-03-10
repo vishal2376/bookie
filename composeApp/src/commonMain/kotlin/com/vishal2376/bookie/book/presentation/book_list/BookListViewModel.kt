@@ -6,6 +6,7 @@ import com.vishal2376.bookie.book.data.respository.BookRepository
 import com.vishal2376.bookie.book.domain.Book
 import com.vishal2376.bookie.core.domain.onError
 import com.vishal2376.bookie.core.domain.onSuccess
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -51,7 +52,8 @@ class BookListViewModel(private val repository: BookRepository) : ViewModel() {
 		}
 	}
 
-	fun observeSearchQuery() {
+	@OptIn(FlowPreview::class)
+	private fun observeSearchQuery() {
 		state.map { it.searchQuery }
 			.distinctUntilChanged()
 			.debounce(500L)

@@ -9,6 +9,8 @@ import com.vishal2376.bookie.book.data.respository.BookRepository
 import com.vishal2376.bookie.core.domain.onSuccess
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -24,6 +26,7 @@ class BookDetailViewModel(
 	private val _state = MutableStateFlow(BookDetailState())
 	val state = _state.onStart {
 		fetchBookDescription()
+		observeFavoriteStatus()
 	}.stateIn(
 		scope = viewModelScope,
 		started = SharingStarted.WhileSubscribed(5000),
@@ -39,9 +42,25 @@ class BookDetailViewModel(
 			BookDetailAction.OnClickBack -> Unit
 
 			BookDetailAction.OnClickFavorite -> {
-				_state.update { it.copy(isFavorite = !it.isFavorite) }
+				viewModelScope.launch {
+					if (state.value.isFavorite) {
+						bookRepository.deleteFavoriteBook(bookId)
+					} else {
+						state.value.book?.let { book ->
+							bookRepository.addFavoriteBook(book)
+						}
+					}
+				}
 			}
 		}
+	}
+
+	private fun observeFavoriteStatus() {
+		bookRepository.isBookFavorite(bookId)
+			.onEach { isFavorite ->
+				_state.update { it.copy(isFavorite = isFavorite) }
+			}
+			.launchIn(viewModelScope)
 	}
 
 	private fun fetchBookDescription() {
