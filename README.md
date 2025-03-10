@@ -1,14 +1,6 @@
-This is a Kotlin Multiplatform project targeting Android, iOS, Desktop.
+# Bookie App
 
-* `/composeApp` is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - `commonMain` is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    `iosMain` would be the right folder for such calls.
+Not completed yet... still learning KMP :)
 
-* `/iosApp` contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform, 
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+Here is UI Design - [Figma Link](https://www.figma.com/design/sHw6CYPLW6Ia6QytlVoupK/Bookie-App-UI?node-id=0-1&t=jHE0xACim7vwSxlF-1)
 
-
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
