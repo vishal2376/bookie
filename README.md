@@ -39,7 +39,7 @@
 
 - 📚 Browse and explore book details  
 - 🔖 Bookmark and save books locally  
-- 🌙 Material 3 with full dark theme support  
+- 🌙 Material 3 with full dark theme support
 - 💻 Cross-platform support (Android, iOS, Desktop)  
 - ⚡ Optimized with Clean Architecture and MVI  
 
@@ -96,4 +96,8 @@ We welcome contributions from anyone interested in helping to improve bookie! Fe
 ## License
 
 This project is licensed under the GPL v3.0 License - see the [LICENSE](LICENSE) file for details.
+
+## Credits
+
+Helpful learning resource by Philipp Lackner  - [KMP Book App tutorial](https://www.youtube.com/watch?v=WT9-4DXUqsM&t=2141s) 
 
