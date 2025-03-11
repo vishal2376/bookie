@@ -17,6 +17,8 @@ import com.vishal2376.bookie.book.presentation.book_detail.BookDetailScreenRoot
 import com.vishal2376.bookie.book.presentation.book_detail.BookDetailViewModel
 import com.vishal2376.bookie.book.presentation.book_list.BookListScreenRoot
 import com.vishal2376.bookie.book.presentation.book_list.BookListViewModel
+import com.vishal2376.bookie.book.presentation.favorite_book_list.FavoriteBookListScreenRoot
+import com.vishal2376.bookie.book.presentation.favorite_book_list.FavoriteBookListViewModel
 import com.vishal2376.bookie.book.presentation.viewmodels.SharedViewModel
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -41,7 +43,29 @@ fun AppNavigation() {
 					onBookClick = { book ->
 						sharedViewModel.onSelectBook(book)
 						navController.navigate(Route.BookDetail(book.id))
+					},
+					navigateToFavoriteBooks = {
+						navController.navigate(Route.FavoriteBookList)
 					})
+			}
+
+			composable<Route.FavoriteBookList> {
+				val favoriteBookListViewModel = koinViewModel<FavoriteBookListViewModel>()
+				val sharedViewModel = it.sharedKoinViewModel<SharedViewModel>(navController)
+
+				LaunchedEffect(Unit) {
+					sharedViewModel.onSelectBook(null)
+				}
+
+				FavoriteBookListScreenRoot(viewModel = favoriteBookListViewModel,
+					onBookClick = { book ->
+						sharedViewModel.onSelectBook(book)
+						navController.navigate(Route.BookDetail(book.id))
+					},
+					onClickBack = {
+						navController.navigateUp()
+					}
+				)
 			}
 
 			composable<Route.BookDetail> {

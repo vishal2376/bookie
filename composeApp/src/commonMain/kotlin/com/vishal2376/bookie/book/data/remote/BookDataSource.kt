@@ -5,7 +5,7 @@ import com.vishal2376.bookie.book.data.dto.SearchResponseDto
 import com.vishal2376.bookie.core.domain.DataError
 import com.vishal2376.bookie.core.domain.Result
 
-interface BookDataStore {
+interface BookDataSource {
 	suspend fun searchBooks(
 		query: String,
 		resultLimit: Int? = null

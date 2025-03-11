@@ -4,7 +4,7 @@ import androidx.sqlite.SQLiteException
 import com.vishal2376.bookie.book.data.database.FavoriteBookDao
 import com.vishal2376.bookie.book.data.mapper.toBookEntity
 import com.vishal2376.bookie.book.data.mapper.toDomain
-import com.vishal2376.bookie.book.data.remote.BookDataStore
+import com.vishal2376.bookie.book.data.remote.BookDataSource
 import com.vishal2376.bookie.book.domain.Book
 import com.vishal2376.bookie.core.domain.DataError
 import com.vishal2376.bookie.core.domain.EmptyResult
@@ -14,11 +14,11 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class BookRepositoryImpl(
-	private val bookDataStore: BookDataStore,
+	private val bookDataSource: BookDataSource,
 	private val favoriteBookDao: FavoriteBookDao
 ) : BookRepository {
 	override suspend fun searchBooks(query: String): Result<List<Book>, DataError.Remote> {
-		return bookDataStore
+		return bookDataSource
 			.searchBooks(query)
 			.map { dto ->
 				dto.results.map { it.toDomain() }
@@ -26,8 +26,13 @@ class BookRepositoryImpl(
 	}
 
 	override suspend fun getBookDescription(id: String): Result<String?, DataError.Remote> {
-		return bookDataStore.getBookDetails(id).map { book ->
-			book.description
+		val localResult = favoriteBookDao.getBookById(id)
+		return if (localResult == null) {
+			bookDataSource.getBookDetails(id).map { book ->
+				book.description
+			}
+		} else {
+			Result.Success(localResult.description)
 		}
 	}
 

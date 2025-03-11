@@ -13,7 +13,7 @@ private const val BASE_URL = "https://openlibrary.org"
 
 class BookDataSourceImpl(
 	private val httpClient: HttpClient
-) : BookDataStore {
+) : BookDataSource {
 	override suspend fun searchBooks(
 		query: String,
 		resultLimit: Int?
