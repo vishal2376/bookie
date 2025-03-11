@@ -1,5 +1,7 @@
 package com.vishal2376.bookie.app
 
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -28,7 +30,31 @@ fun AppNavigation() {
 
 	NavHost(
 		navController = navController,
-		startDestination = Route.BookGraph
+		startDestination = Route.BookGraph,
+		enterTransition = {
+			slideIntoContainer(
+				AnimatedContentTransitionScope.SlideDirection.Left,
+				animationSpec = tween(500)
+			)
+		},
+		exitTransition = {
+			slideOutOfContainer(
+				AnimatedContentTransitionScope.SlideDirection.Left,
+				animationSpec = tween(500)
+			)
+		},
+		popEnterTransition = {
+			slideIntoContainer(
+				AnimatedContentTransitionScope.SlideDirection.Right,
+				animationSpec = tween(500)
+			)
+		},
+		popExitTransition = {
+			slideOutOfContainer(
+				AnimatedContentTransitionScope.SlideDirection.Right,
+				animationSpec = tween(500)
+			)
+		}
 	) {
 		navigation<Route.BookGraph>(startDestination = Route.BookList) {
 			composable<Route.BookList> {
