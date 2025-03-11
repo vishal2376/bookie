@@ -18,7 +18,6 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.vishal2376.bookie.book.presentation.book_detail.components.BookDetailUI
 import com.vishal2376.bookie.book.presentation.book_list.components.EmptyResultUI
@@ -78,8 +77,7 @@ fun BookDetailScreen(state: BookDetailState, onAction: (BookDetailAction) -> Uni
 		Column(
 			modifier = Modifier
 				.fillMaxSize()
-				.padding(innerPadding)
-				.padding(horizontal = 24.dp),
+				.padding(innerPadding),
 		) {
 			if (state.book == null) {
 				EmptyResultUI()

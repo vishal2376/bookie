@@ -59,8 +59,7 @@ fun BookDetailUI(book: Book) {
 
 	// Title & Author
 	Column(
-		modifier = Modifier.fillMaxWidth(),
-		horizontalAlignment = Alignment.CenterHorizontally
+		modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp)
 	) {
 		Text(
 			book.title,
@@ -80,9 +79,9 @@ fun BookDetailUI(book: Book) {
 
 	// Cover & Additional Info
 	Row(
-		modifier = Modifier.fillMaxWidth(),
+		modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp),
 		verticalAlignment = Alignment.CenterVertically,
-		horizontalArrangement = Arrangement.spacedBy(24.dp, Alignment.CenterHorizontally)
+		horizontalArrangement = Arrangement.spacedBy(24.dp)
 	) {
 		Box(
 			modifier = Modifier
@@ -128,7 +127,7 @@ fun BookDetailUI(book: Book) {
 	// Description
 	HeadingTextUI("Description")
 	Text(
-		modifier = Modifier.fillMaxWidth().padding(24.dp, 8.dp),
+		modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp),
 		text = book.description ?: "",
 		style = MaterialTheme.typography.bodySmall
 	)
